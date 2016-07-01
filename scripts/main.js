@@ -27,32 +27,26 @@ var create = function(){
 
 }
 var update = function(){
+  var direction = new Phaser.Point();
   if(TankOnline.keyboard.isDown(Phaser.KeyCode.LEFT)){
-    directionX = -1;
-    direction = 1;
-
+    direction.x = -1;
   }
   else if (TankOnline.keyboard.isDown(Phaser.KeyCode.RIGHT)){
-    directionX = 1;
-    direction = 2
+    direction.x = 1;
   }
-  else directionX = 0;
+  else direction.x = 0;
 
   if(TankOnline.keyboard.isDown(Phaser.KeyCode.UP)){
-    directionY = -1;
-    direction = 3
+    direction.y = -1;
   }
   else if (TankOnline.keyboard.isDown(Phaser.KeyCode.DOWN)) {
-    directionY = 1;
-    direction = 4;
+    direction.y = 1;
   }
-  else directionY = 0;
+  else direction.y = 0;
 
-  tank.update(directionX, directionY);
+  tank.update(direction);
 
   if(TankOnline.keyboard.isDown(Phaser.KeyCode.SPACEBAR)){
-    var bullet;
-    bullet = new Bullet(window.innerWidth/2, window.innerHeight/2);
-    bullet.update(direction);
+    tank.fire();
   }
 }
