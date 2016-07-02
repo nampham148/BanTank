@@ -56,12 +56,18 @@ var create = function(){
 
 }
 var update = function(){
-  TankOnline.game.physics.arcade.collide(Tank, wallGroup);
-  TankOnline.game.physics.arcade.overlap(TankOnline.bulletGroup,
+  TankOnline.game.physics.arcade.collide(allyGroup, wallGroup);
+  TankOnline.game.physics.arcade.collide(enemyGroup, wallGroup);
+  TankOnline.game.physics.arcade.overlap(allyBulletGroup,
                                           wallGroup,
-                                          onBulletHitWall,
+                                          onallyBulletHitWall,
                                           null,
                                           this);
+  TankOnline.game.physics.arcade.overlap(enemyBulletGroup,
+                                        wallGroup,
+                                        onenemyBulletHitWall,
+                                        null,
+                                        this);
   TankOnline.game.physics.arcade.overlap(allyBulletGroup,
                                           enemyGroup,
                                           onBulletHitEnemy,
@@ -102,8 +108,11 @@ var update = function(){
   }
 }
 
-var onBulletHitWall = function(bulletSprite, wallSprite){
-  bulletSprite.kill();
+var onallyBulletHitWall = function(allyBulletSprite, wallSprite){
+  allyBulletSprite.kill();
+}
+var onenemyBulletHitWall = function(enemyBulletSprite, wallSprite){
+  enemyBulletSprite.kill();
 }
 var onBulletHitEnemy = function(allyBulletSprite, enemySprite){
   enemySprite.damage(allyBulletSprite.bulletDamage);
